@@ -8,6 +8,8 @@
 </head>
 <body>
 
+    <div class="custom-cursor" id="customCursor">🧴</div>
+
     <nav class="navbar">
         <div class="nav-logos"><div class="team-logo">IGEM UFRGS</div></div>
         
@@ -23,9 +25,9 @@
             <div class="nav-item">
                 <a href="problem.html"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>The Problem</a>
                 <div class="dropdown">
-                    <a href="#">Context</a>
-                    <a href="#">POV</a>
-                    <a href="#">Dashboard</a>
+                    <a href="problem.html#context">Context</a>
+                    <a href="problem.html#pov">POV</a>
+                    <a href="problem.html#dashboard">Dashboard</a>
                 </div>
             </div>
 
@@ -89,10 +91,55 @@
             </div>
         </div>
     </nav>
-    <section class="placeholder-section">
-        <h1>The Problem</h1>
-        <p>This is a placeholder page.</p>
-    </section>
+    <main class="problem-page-container">
+        
+        <section id="context" class="problem-section">
+            <h2>1. Context</h2>
+            <p class="shrek-script">"Once upon a time there was a lovely princess. But she had an enchantment upon her of a fearful sort which could only be broken by love's first kiss. She was locked away in a castle guarded by a terrible fire-breathing dragon. Many brave knights had attempted to free her from this dreadful prison, but none prevailed."</p>
+            
+            <p class="shrek-script">"She waited in the dragon's keep in the highest room of the tallest tower for her true love and true love's first kiss. Like that's ever gonna happen. What a load of..." <br><span class="shrek-dialogue">Shrek:</span> *slams outhouse door* "Somebody once told me the world is gonna roll me. I ain't the sharpest tool in the shed."</p>
+
+            <div class="placeholder-image">
+                <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                Insert Infographic Context Here
+            </div>
+
+            <p class="shrek-script"><span class="shrek-dialogue">Villager 1:</span> "Think it's in there?"<br>
+            <span class="shrek-dialogue">Villager 2:</span> "All right. Let's get it!"<br>
+            <span class="shrek-dialogue">Shrek:</span> "What are you doing in my swamp?!"</p>
+        </section>
+
+        <section id="pov" class="problem-section">
+            <h2>2. Point of View (POV)</h2>
+            <p class="shrek-script"><span class="shrek-dialogue">Lord Farquaad:</span> "Some of you may die, but it's a sacrifice I am willing to make."</p>
+            
+            <p class="shrek-script">"Now, this is the part where you run away. And stay out! Wanted: Fairy Tale Creatures. Reward. The ogre roars, the villagers scream and run away in terror. Shrek smiles, satisfied with his work, and goes about his daily routine. Bathing in mud, brushing his teeth with caterpillar paste, you know, the usual."</p>
+
+            <div class="placeholder-image">
+                <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                Insert Interview/POV Image Here
+            </div>
+
+            <p class="shrek-script"><span class="shrek-dialogue">Donkey:</span> "Please! I don't wanna go back there! You don't know what it's like to be considered a freak. Well, maybe you do. But that's why we gotta stick together! You gotta let me stay! Please! Please!"<br>
+            <span class="shrek-dialogue">Shrek:</span> "Okay! Okay! But one night only."</p>
+        </section>
+
+        <section id="dashboard" class="problem-section">
+            <h2>3. Dashboard</h2>
+            <p class="shrek-script"><span class="shrek-dialogue">Donkey:</span> "This is going to be fun! We can stay up late, swapping manly stories, and in the morning, I'm making waffles!"</p>
+            
+            <p class="shrek-script">"Onions have layers. Ogres have layers. Onions have layers. You get it? We both have layers. Donkey looks confused, sniffing the air. 'Oh, you both have layers. Oh. You know, not everybody like onions. Cake! Everybody loves cake! Cakes have layers!'"</p>
+
+            <div class="placeholder-image">
+                <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z"/><path d="M7 10h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z"/></svg>
+                Insert Analytics Dashboard Here
+            </div>
+
+            <p class="shrek-script">"That'll do, Donkey. That'll do."</p>
+        </section>
+
+    </main>
+
     <footer class="footer">
         <div class="footer-social">
             <a href="#" class="social-icon"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.266.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
