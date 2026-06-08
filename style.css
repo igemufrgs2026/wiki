@@ -35,6 +35,11 @@ h3 {
     text-transform: uppercase;
 }
 
+h4 {
+    font-size: 1.3rem;
+    font-weight: 200;
+}
+
 /* --- NAVBAR --- */
 .navbar {
     position: fixed; top: 0; left: 0; width: 100%;
@@ -188,7 +193,7 @@ h3 {
 }
 
 /* --- SEÇÃO 1: HERO --- */
-.zoom-container { height: 450vh; position: relative; }
+.zoom-container { height: 700vh; position: relative; }
 .sticky-wrapper {
     position: sticky; top: 0; height: 100vh; overflow: hidden;
     display: flex; justify-content: center; align-items: center;
@@ -207,9 +212,44 @@ h3 {
 .content-after-zoom {
     position: absolute; z-index: 3; top: 0; left: 0; width: 100%; height: 100%;
     opacity: 0; pointer-events: none; transition: opacity 0.8s ease;
-    background-color: rgba(0, 0, 0, 0.85); 
+    background-color: rgba(0, 0, 0, 0.93);
     display: flex; flex-direction: column; align-items: center; justify-content: center; color: white;
 }
+.hero-logo-box { border: 3px solid #e74c3c; padding: 20px 60px; font-size: 2rem; color: #e74c3c; margin-bottom: 20px; text-transform: uppercase; }
+
+/* Vagalumes */
+.fireflies-container {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 0;
+}
+.firefly {
+    position: absolute;
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #ffffaa 0%, #88ff44 60%, transparent 100%);
+    box-shadow: 0 0 6px 2px rgba(180, 255, 80, 0.8);
+    animation: firefly-blink var(--duration) ease-in-out infinite, firefly-drift var(--drift) ease-in-out infinite alternate;
+    opacity: 0;
+}
+@keyframes firefly-blink {
+    0%, 100% { opacity: 0; }
+    40%, 60% { opacity: var(--max-opacity); }
+}
+@keyframes firefly-drift {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(var(--dx), var(--dy)); }
+}
+
+/* Texto "by iGEM" acima do logo */
+.subtitle-igem {
+    font-size: 1rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 16px;
+    position: relative; z-index: 1;
+}
+.hero-logo-box { border: 3px solid #e74c3c; padding: 20px 60px; font-size: 2rem; color: #e74c3c; margin-bottom: 20px; text-transform: uppercase; }
 .hero-logo-box { border: 3px solid #e74c3c; padding: 20px 60px; font-size: 2rem; color: #e74c3c; margin-bottom: 20px; text-transform: uppercase; }
 
 /* --- SEÇÃO 2: MOLECULA & TIMELINE --- */
@@ -236,14 +276,65 @@ h3 {
     filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
 }
 
-.timeline-interactive-area { position: relative; height: 400px; display: flex; justify-content: flex-end; margin-right: 5%; user-select: none; }
-.timeline-track { position: relative; width: 10px; height: 100%; background-color: #5d34a5; border-radius: 10px; }
-.year-marker { position: absolute; right: 25px; transform: translateY(-50%); font-size: 1rem; color: #ccc; cursor: pointer; }
-.year-marker.active { opacity: 0; }
+.timeline-interactive-area { position: relative; height: 600px; display: flex; justify-content: center; align-items: stretch; user-select: none; margin-right: -100%; }
+.timeline-track { position: relative; width: 10px; height: 100%; background-color: #5d34a5; border-radius: 10px; flex-shrink: 0; }
 .timeline-knob { position: absolute; left: 50%; transform: translate(-50%, -50%); width: 28px; height: 28px; background-color: var(--dark-blue); border: 4px solid white; border-radius: 50%; cursor: grab; z-index: 10; }
-.info-bar { position: absolute; right: 20px; transform: translateY(-50%); background-color: var(--primary-green); padding: 15px 30px; border-radius: 30px 0 0 30px; color: white; opacity: 0; width: 0; transition: width 0.3s, opacity 0.3s, top 0.1s; overflow: hidden; display: flex; align-items: center; }
-.info-bar.visible { opacity: 1; width: 380px; }
-.info-year { font-weight: 700; font-size: 1.5rem; border-right: 2px solid rgba(255,255,255,0.3); padding-right: 15px; margin-right: 15px; }
+
+/* Anos à direita da linha */
+.year-marker {
+    position: absolute; left: 25px; transform: translateY(-50%);
+    font-size: 1rem; color: #aaa; cursor: pointer;
+    transition: font-size 0.2s, color 0.2s, font-weight 0.2s;
+    white-space: nowrap;
+}
+.year-marker.active {
+    font-size: 1.6rem; color: var(--dark-blue);
+    font-weight: 700; opacity: 1;
+}
+
+/* Anos à direita da linha */
+.year-marker {
+    position: absolute; left: 25px; transform: translateY(-50%);
+    font-size: 1rem; color: #aaa; cursor: pointer;
+    transition: font-size 0.2s, color 0.2s, font-weight 0.2s;
+    white-space: nowrap;
+}
+.year-marker.active {
+    font-size: 1.6rem; color: var(--dark-blue);
+    font-weight: 700; opacity: 1;
+}
+
+/* Títulos fixos à esquerda da linha */
+.year-label {
+    position: absolute; right: 25px; transform: translateY(-50%);
+    font-size: 0.85rem; color: #aaa;
+    white-space: nowrap; text-align: right;
+    transition: color 0.2s, font-weight 0.2s;
+    pointer-events: none;
+}
+.year-label.active {
+    color: var(--dark-blue);
+    font-weight: 700;
+}
+
+/* Caixa verde à esquerda apontando para esquerda (como antes) */
+.info-bar {
+    position: absolute; left: calc(100px) ; transform: translateY(-50%);
+    background-color: var(--primary-green); padding: 16px 22px;
+    border-radius: 30px 0 0 30px; color: white;
+    opacity: 0; width: 200px;
+    transition: opacity 0.3s, top 0.15s;
+    overflow: hidden; display: flex; flex-direction: column; justify-content: center;
+    min-height: 80px;
+}
+.info-bar.visible { opacity: 1; }
+.info-bar.visible { opacity: 1; width: 400px; }
+.info-year { display: none; }
+.info-title {
+    font-weight: 700; font-size: 1rem;
+    margin-bottom: 6px; white-space: nowrap;
+}
+.info-text { font-size: 0.85rem; opacity: 0.9; white-space: normal; line-height: 1.4; }
 
 /* --- SEÇÃO 3: MAPA COM IMAGENS E DADOS --- */
 .map-section { height: 400vh; position: relative; background-color: #fafafa; }
@@ -256,9 +347,8 @@ h3 {
 .map-col-left { flex: 1.2; display: flex; align-items: center; justify-content: center; position: relative; height: 100%; }
 .map-visual-container { position: relative; width: 100%; max-width: 600px; aspect-ratio: 1/1; }
 
-.map-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; transition: opacity 0.8s ease, transform 0.8s ease; }
-.rs-layer { opacity: 0; transform: scale(0.8); pointer-events: none; }
-.rs-layer.active { opacity: 1; transform: scale(1); pointer-events: auto; }
+.map-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; transition: none; }
+.rs-layer { pointer-events: none; }
 .rs-layer img { width: 100%; height: 100%; object-fit: contain; }
 
 .map-pin {
@@ -440,3 +530,4 @@ h3 {
     fill: #7f8c8d;
     margin-bottom: 15px;
 }
+
