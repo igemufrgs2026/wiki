@@ -1,4 +1,4 @@
-/* --- RESET E PADRONIZAÇÃO --- */
+/* RESET E PADRONIZAÇÃO */
 * {
     margin: 0;
     padding: 0;
@@ -47,7 +47,7 @@ h4 {
     font-weight: 200;
 }
 
-/* --- NAVBAR --- */
+/* NAVBAR */
 .navbar {
     position: fixed;
     top: 0;
@@ -106,7 +106,7 @@ h4 {
     transition: fill 0.3s ease;
 }
 
-/* Hover Principal: Fica branco com texto/ícone verde */
+/* Hover Principal: Branco com o icone verde*/
 .nav-item:hover>a {
     background-color: white;
     color: var(--primary-green);
@@ -116,13 +116,13 @@ h4 {
     fill: var(--primary-green);
 }
 
-/* --- PROTEÇÃO CONTRA VAZAMENTO NA DIREITA (DESKTOP) --- */
+/* PROTECAO CONTRA VAZAMENTO NA DIREITA (DESKTOP) */
 .nav-item:nth-last-child(-n+2) .dropdown {
     left: auto;
     right: 0;
 }
 
-/* --- BOTÃO MOBILE --- */
+/* BOTAO MOBILE */
 .mobile-menu-btn {
     display: none;
     background: none;
@@ -131,7 +131,7 @@ h4 {
     z-index: 10001;
 }
 
-/* --- RESPONSIVIDADE (MOBILE & TABLET) --- */
+/* RESPONSIVIDADE (MOBILE & TABLET) */
 @media (max-width: 1100px) {
     .mobile-menu-btn {
         display: block;
@@ -247,7 +247,7 @@ h4 {
     padding-left: 20px;
 }
 
-/* --- SEÇÃO 1: HERO --- */
+/* SECAO 1: HERO */
 .zoom-container {
     height: 700vh;
     position: relative;
@@ -388,7 +388,7 @@ h4 {
     text-transform: uppercase;
 }
 
-/* --- SEÇÃO 2: MOLECULA & TIMELINE --- */
+/* SECAO 2: MOLECULA & TIMELINE */
 .molecule-section {
     padding: 100px 50px;
     background-color: #fff;
@@ -457,7 +457,7 @@ h4 {
     z-index: 10;
 }
 
-/* Anos à direita da linha */
+/* Anos a direita da linha */
 .year-marker {
     position: absolute;
     left: 25px;
@@ -476,26 +476,8 @@ h4 {
     opacity: 1;
 }
 
-/* Anos à direita da linha */
-.year-marker {
-    position: absolute;
-    left: 25px;
-    transform: translateY(-50%);
-    font-size: 1rem;
-    color: #aaa;
-    cursor: pointer;
-    transition: font-size 0.2s, color 0.2s, font-weight 0.2s;
-    white-space: nowrap;
-}
 
-.year-marker.active {
-    font-size: 1.6rem;
-    color: var(--dark-blue);
-    font-weight: 700;
-    opacity: 1;
-}
-
-/* Títulos fixos à esquerda da linha */
+/* Títulos fixos a esquerda da linha */
 .year-label {
     position: absolute;
     right: 25px;
@@ -513,7 +495,7 @@ h4 {
     font-weight: 700;
 }
 
-/* Caixa verde à esquerda apontando para esquerda (como antes) */
+/* Caixa verde a esquerda apontando para esquerda */
 .info-bar {
     position: absolute;
     left: calc(100px);
@@ -559,7 +541,7 @@ h4 {
     line-height: 1.4;
 }
 
-/* --- SEÇÃO 3: MAPA COM IMAGENS E DADOS --- */
+/* SECAO 3: MAPA COM IMAGENS E DADOS */
 .map-section {
     height: 400vh;
     position: relative;
@@ -764,7 +746,7 @@ h4 {
     color: #333;
 }
 
-/* --- SEÇÃO 4: SPRAYER --- */
+/* SECAO 4: SPRAYER */
 .sprayer-section {
     min-height: 100vh;
     background-color: #fff;
@@ -772,6 +754,21 @@ h4 {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+}
+
+#firefliesSprayer {
+    /* controle de altura */
+    height: 60%;
+    z-index: 1;
+    /*Subida dos vagalumes*/
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
+}
+
+#firefliesSprayer .firefly {
+    background: radial-gradient(circle, #55ff00 0%, #1e8f00 60%, transparent 100%);
+    box-shadow: 0 0 8px 3px rgba(30, 143, 0, 0.8);
 }
 
 .sprayer-container {
@@ -788,7 +785,6 @@ h4 {
     height: 500px;
     border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
     overflow: hidden;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
     cursor: none;
 }
 
@@ -843,7 +839,7 @@ h4 {
     display: none;
 }
 
-/* --- SEÇÃO 5: NEWS --- */
+/* SECAO 5: NEWS */
 .archive-section {
     padding: 100px 50px;
     background-color: #f9f9f9;
@@ -950,7 +946,7 @@ h4 {
     color: #333;
 }
 
-/* --- INDICADOR DE SCROLL --- */
+/* INDICADOR DE SCROLL */
 .scroll-indicator {
     position: absolute;
     bottom: 40px;
@@ -993,7 +989,7 @@ h4 {
     }
 }
 
-/* --- DISCOVER & FOOTER --- */
+/* DISCOVER & FOOTER */
 .discover-section {
     padding: 100px 50px;
     text-align: center;
@@ -1078,18 +1074,16 @@ h4 {
     text-decoration: underline;
 }
 
-/* --- ESTRUTURA DA PÁGINA THE PROBLEM --- */
+/* THE PROBLEM */
 .problem-page-container {
     max-width: 1000px;
     margin: 150px auto 80px;
-    /* Margem no topo compensa a navbar fixa */
     padding: 0 40px;
     background-color: #f4f4f4;
 }
 
 .problem-section {
     margin-bottom: 100px;
-    /* O scroll-margin-top é o segredo! Ele impede que a navbar cubra o título ao usar o link âncora */
     scroll-margin-top: 120px;
 }
 
@@ -1136,6 +1130,52 @@ h4 {
 .placeholder-image svg {
     width: 50px;
     height: 50px;
-    fill: #7f8c8d;
     margin-bottom: 15px;
+}
+
+/* INFECCAO & QUEBRA (2,4-D) */
+.brown-spore {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background-color: #8B4513;
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(139, 69, 19, 0.9);
+    pointer-events: none;
+    z-index: 9999;
+    animation: spore-fall var(--fall-dur) linear forwards;
+}
+
+@keyframes spore-fall {
+    0% {
+        transform: translate(0, 0) scale(0.5);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(var(--drift), 120vh) scale(1.5);
+        opacity: 0;
+    }
+}
+
+.molecule-word {
+    display: inline-block;
+    transition: color 0.8s ease-out;
+    white-space: pre-wrap;
+}
+
+.molecule-word.infected-word {
+    color: #8B4513 !important;
+}
+
+.molecule-char {
+    display: inline-block;
+    will-change: transform, opacity;
+}
+
+/* Posicao do texto "WHAT IS 2,4D? */
+.molecule-section {
+    margin-top: -350px;
+    position: relative;
+    z-index: 2;
 }
