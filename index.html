@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2,4-D Project: Scrollytelling</title>
     <link rel="stylesheet" href="css/style.css">
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
 </head>
 
 <body>
@@ -143,7 +144,6 @@
     </div>
 
     <section class="sprayer-section">
-        <div class="fireflies-container" id="firefliesSprayer"></div>
         <div class="sprayer-container">
             <div class="sprayer-text">
                 <h2>2,4-D: A solution for some, a nightmare for others.</h2>
@@ -160,13 +160,7 @@
         <div class="split-layout">
             <div class="molecule-info">
                 <h3>WHAT IS <span class="green-highlight">2,4D</span>?</h3>
-                <h4>*2,4-D* (2,4-dichlorophenoxyacetic acid) is a *synthetic organic compound* belonging to the
-                    *phenoxyacetic herbicide *group. 2,4-D acts as a *synthetic auxin*, being absorbed through leaves
-                    and roots and translocated via the plant vascular system. Once in the target tissues, it *mimics the
-                    action of endogenous auxins*, hormones responsible for *regulating growth*. At *higher
-                    concentrations*, 2,4-D causes *disordered growth*, leading to morphological distortions and,
-                    consequently, *plant death*. The compound predominantly affects *broadleaf plants* whereas grasses
-                    remain untouchable, this allows its selective use in *weed control* in cereal crops.</h4>
+                <h4><strong>2,4-D</strong> (2,4-dichlorophenoxyacetic acid) is a <strong>synthetic organic compound</strong> belonging to the <strong>phenoxyacetic herbicide</strong> group. 2,4-D acts as a <strong>synthetic auxin</strong>, being absorbed through leaves and roots and translocated via the plant vascular system. Once in the target tissues, it <strong>mimics the action of endogenous auxins</strong>, hormones responsible for <strong>regulating growth</strong>. At <strong>higher concentrations</strong>, 2,4-D causes <strong>disordered growth</strong>, leading to morphological distortions and, consequently, <strong>plant death</strong>. The compound predominantly affects <strong>broadleaf plants</strong> whereas grasses remain untouchable, this allows its selective use in <strong>weed control</strong> in cereal crops.</h4>
                 <div class="molecule-img-container">
                     <img src="assets/images/24D.svg" alt="Estrutura da molécula 2,4-D">
                 </div>
@@ -174,6 +168,8 @@
             <div class="timeline-interactive-area" id="timelineArea">
                 <div class="timeline-track" id="timelineTrack">
                     <div class="timeline-knob" id="timelineKnob"></div>
+                    <div class="timeline-extension"></div>
+                    <div class="timeline-today">TODAY</div>
                 </div>
                 <div class="info-bar" id="infoBar">
                     <div class="info-content">
@@ -211,6 +207,7 @@
                     <h2>RIO GRANDE DO SUL: GROUND ZERO</h2>
                     <p>The Campanha region suffers intensely from 2,4-D drift, directly hitting vineyards. Hover over
                         the red pins to see the affected areas.</p>
+                        
                     <div class="impact-dashboard">
                         <div class="impact-card">
                             <h4>Economic Losses</h4>
@@ -238,14 +235,15 @@
 
     <section class="archive-section">
         <div class="archive-header">
-            <h2>SO HOW DOES <span class="highlight-green">NOSSO PROJETO</span> FIT INTO THIS?</h2>
+            <h2>SO HOW DOES <span class="highlight-green">OURS PROJECT</span> FIT INTO THIS?</h2>
         </div>
         <div class="archive-grid">
             <div class="folder-container">
                 <div class="folder-tabs">
-                    <button class="tab-btn active" onclick="openTab(0)">NEWS</button>
-                    <button class="tab-btn" onclick="openTab(1)">Click</button>
-                    <button class="tab-btn" onclick="openTab(2)">Click</button>
+                    <button class="tab-btn active" onclick="openTab(0)">HOME</button>
+                    <button class="tab-btn" onclick="openTab(1)">News 1</button>
+                    <button class="tab-btn" onclick="openTab(2)">News 2</button>
+                    <button class="tab-btn" onclick="openTab(3)">News 3</button>
                 </div>
                 <div class="folder-body">
                     <div class="folder-cover-content" id="folderCover">iGEM</div>
@@ -256,10 +254,27 @@
                 </div>
             </div>
             <div class="archive-context">
-                <p>Fiscalização escassa no estado gera a necessidade de soluções biotecnológicas de detecção.</p>
+                <p>There is a growing controversy surrounding the use of the herbicide 2,4-D in southern Brazil, particularly in the state of Rio Grande do Sul. While the product is widely used by soybean farmers as an effective tool for weed control, repeated cases of herbicide drift have caused damage to sensitive crops such as grapes, apples, olives, and other fruits. As a result, the issue has triggered conflicts between different agricultural sectors, legal disputes, and new regulatory proposals aimed at controlling or restricting its application. This situation illustrates the broader challenge of balancing agricultural productivity with environmental protection, crop coexistence, and the safety of rural communities.
+</p>
             </div>
         </div>
     </section>
+    <section class="hardware-section">
+    <div class="hardware-header">
+        <h2>OUR <span class="highlight-green">HARDWARE</span></h2>
+        <p>Interactive 3D Visualization</p>
+    </div>
+    <div class="model-container">
+        <!-- Substitua o atributo src pelo caminho do seu arquivo .glb ou .gltf -->
+        <model-viewer 
+            src="assets/models/placeholder.glb" 
+            alt="3D Hardware Model Placeholder" 
+            auto-rotate 
+            camera-controls 
+            shadow-intensity="1">
+        </model-viewer>
+    </div>
+</section>
 
     <section class="discover-section">
         <h2>DISCOVER MORE ABOUT <span class="green-highlight">NOME</span></h2>
