@@ -51,6 +51,11 @@ window.addEventListener('scroll', () => {
         } else {
             mapTextFinal.classList.remove('visible');
         }
+        if (mp > 0.4) { // Quando o usuário chegar a 40% do scroll do mapa
+            mapTextFinal.classList.add('visible');
+        } else {
+    mapTextFinal.classList.remove('visible');
+}
     }
 });
 
@@ -75,11 +80,11 @@ if (pins.length > 0) {
 
 // TIMELINE
 const timelineData = [
-    { year: 1941, title: "Synthesis and discovery of herbicidal activity", text: "Development of 2,4-D marked the beginning of the modern era of selective synthetic herbicides." },
-    { year: 1946, title: "Lançamento comercial", text: "Começa a ser vendido amplamente para uso agrícola." },
-    { year: 1970, title: "Guerra do Vietnã", text: "Componente do Agente Laranja, usado como desfolhante químico." },
-    { year: 1985, title: "Seu título aqui", text: "Descrição do evento aqui." },
-    { year: 2024, title: "Crise no RS", text: "Deriva do 2,4-D atinge vinhedos históricos no Rio Grande do Sul." }
+    { year: "1940s", title: "Synthesis and discovery of herbicidal activity", text: "Development of 2,4-D marked the beginning of the modern era of selective synthetic herbicides." },
+    { year: "1950s-60s", title: "Global agricultural expansion and introduction in Brazil", text: "Consolidation as a key tool for controlling broadleaf weeds in cereals, sugarcane, and pastures." },
+    { year: "1960-70", title: "Use in Agent Orange (Vietnam War)", text: "Used as a component of the military defoliant; this episode strongly influenced global public perception of herbicides." },
+    { year: "2008-20", title: "Toxicological re-evaluation by ANVISA", text: "Registration maintained with updated safety criteria and restrictions to mitigate health and environmental risks." },
+    { year: "2010-20", title: "Regulatory updates and increased use in Brazil", text: "Ban on highly volatile ester formulations, adoption of lower-drift formulations, and increased use driven by glyphosate-resistant weeds." }
 ];
 const track = document.getElementById('timelineTrack'), knob = document.getElementById('timelineKnob'), infoBar = document.getElementById('infoBar');
 
@@ -176,13 +181,35 @@ if (canvas && sprayer) {
 }
 
 // NEWS
+
+const newsData = [
+    { title: "Rio Grande do Sul records 40.28% reduction in hormonal herbicide drift cases", summary: "A report from the State Secretariat of Agriculture indicates a reduction in reported herbicide drift incidents in Rio Grande do Sul. Nevertheless, several agricultural areas remain affected...", link: "https://www.revistarural.com.br/2023/05/24/rs-registra-reducao-de-4028-nas-derivas-de-herbicidas-hormonais/", img: "assets/images/news1.jpg" },
+    { title: "Court bans the use of the herbicide 2,4-D in regions of Rio Grande do Sul", summary: "A regional court ordered the temporary suspension of 2,4-D use in certain areas of Rio Grande do Sul following multiple reports of damage to fruit crops.", link: "https://g1.globo.com/rs/rio-grande-do-sul/noticia/2025/09/04/justica-proibe-uso-de-agrotoxico-24-d-em-regioes-do-rs-herbicida-afeta-culturas-sensiveis-como-uva-e-maca.ghtml", img: "assets/images/news2.jpg" },
+    { title: "The 2,4-D impasse: soybean and grape producers' conflict", summary: "This report describes the conflict between different agricultural sectors regarding the use of 2,4-D. Soybean producers emphasize productivity, whereas grape growers report economic losses.", link: "https://gauchazh.clicrbs.com.br/campo-e-lavoura/noticia/2025/09/justica-libera-uso-de-agrotoxico-24-d-apos-proibicao-no-rs-entenda-cmfyo18vc01de014isnu148wr.html", img: "assets/images/news3.jpg" },
+];
+
 function openTab(i) {
     const folderCover = document.getElementById('folderCover');
-    if (folderCover) {
-        document.querySelectorAll('.tab-btn').forEach((b, j) => b.classList.toggle('active', i === j));
-        folderCover.style.display = i === 0 ? 'flex' : 'none';
-        document.getElementById('folderPaper').classList.toggle('visible', i !== 0);
-        if (i !== 0) document.getElementById('tab-content').innerHTML = `<div class="news-img" style="width:100%;height:180px;background:#ddd;border-radius:4px;margin-bottom:20px;"></div><span class="news-headline">Notícia ${i}</span><p>Tradução traduzida.</p>`;
+    const paper = document.getElementById('folderPaper');
+    const content = document.getElementById('tab-content');
+
+    document.querySelectorAll('.tab-btn').forEach((b, j) => b.classList.toggle('active', i === j));
+
+    if (i === 0) {
+        folderCover.style.display = 'flex';
+        paper.classList.remove('visible');
+    } else {
+        folderCover.style.display = 'none';
+        paper.classList.add('visible');
+
+        // Exibe a notícia baseada no índice (exemplo simples)
+        const news = newsData[i - 1] || newsData[0];
+        content.innerHTML = `
+            <img src="${news.img}" alt="News Image" style="width:100%; height:200px; object-fit:cover; border-radius:4px; margin-bottom:20px;">
+            <h3 class="news-headline">${news.title}</h3>
+            <p>${news.summary}</p>
+            <a href="${news.link}" target="_blank" style="color:var(--primary-green); font-weight:bold;">Read more</a>
+        `;
     }
 }
 
@@ -197,8 +224,7 @@ if (mobileBtn && navMenu) {
 // VAGALUMES
 (function () {
     const containers = [
-        { el: document.getElementById('firefliesContainer'), count: 55 },
-        { el: document.getElementById('firefliesSprayer'), count: 25 }
+        { el: document.getElementById('firefliesContainer'), count: 55 }
     ];
     
     containers.forEach(data => {
