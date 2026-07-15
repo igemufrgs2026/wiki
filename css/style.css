@@ -132,9 +132,18 @@ h4 {
 }
 
 /* RESPONSIVIDADE (MOBILE & TABLET) */
-@media (max-width: 1100px) {
+@media (max-width: 960px) {
     .mobile-menu-btn {
         display: block;
+    }
+    
+    .sprayer-container {
+        grid-template-columns: 1fr; /* Muda para 1 coluna */
+        text-align: center;
+        gap: 30px;
+    }
+    .sprayer-visual {
+        height: 350px !important; /* Ajusta a altura da imagem para caber na tela */
     }
 
     .nav-menu {
@@ -388,14 +397,13 @@ h4 {
     text-transform: uppercase;
 }
 
-/* SECAO 2: MOLECULA & TIMELINE */
+/* Posição do texto "WHAT IS 2,4D?" */
 .molecule-section {
-    padding: 100px 50px;
-    background-color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
+    margin-top: 0; /* REMOVIDO O -350px QUE CAUSAVA A SOBREPOSIÇÃO */
+    position: relative;
+    z-index: 2;
+    overflow: visible; 
+    padding: 100px 50px; /* Garante um espaçamento saudável */
 }
 
 .split-layout {
@@ -432,7 +440,36 @@ h4 {
     justify-content: center;
     align-items: stretch;
     user-select: none;
-    margin-right: -100%;
+    margin: 0 auto;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    transform: translateX(50px); /* Empurra toda a timeline 50px para a direita */
+}
+
+/* Ajuste da extensão criada anteriormente */
+.timeline-extension {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 250px; /* Aumente esse valor se a linha não encostar no mapa */
+    background: linear-gradient(to bottom, #5d34a5, transparent);
+    z-index: 1;
+}
+
+.timeline-today {
+    position: absolute;
+    bottom: -290px; /* Deve ser um pouco maior que a height da linha acima (ex: height + 40px) */
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--main-font);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--dark-blue);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    z-index: 2;
 }
 
 .timeline-track {
@@ -470,21 +507,22 @@ h4 {
 }
 
 .year-marker.active {
-    font-size: 1.6rem;
+    font-size: 1.2rem;
     color: var(--dark-blue);
     font-weight: 700;
     opacity: 1;
 }
 
 
-/* Títulos fixos a esquerda da linha */
 .year-label {
     position: absolute;
     right: 25px;
     transform: translateY(-50%);
     font-size: 0.85rem;
     color: #aaa;
-    white-space: nowrap;
+    white-space: normal; /* Permite a quebra de linha (removemos o nowrap) */
+    width: 180px; /* Limita a largura para forçar 2 ou mais linhas */
+    line-height: 1.3; /* Melhora o espaçamento entre as linhas */
     text-align: right;
     transition: color 0.2s, font-weight 0.2s;
     pointer-events: none;
@@ -495,50 +533,53 @@ h4 {
     font-weight: 700;
 }
 
-/* Caixa verde a esquerda apontando para esquerda */
+/* Caixa verde apontando para a esquerda */
 .info-bar {
     position: absolute;
-    left: calc(100px);
+    /* Movemos a caixa para a direita da linha para não tocar nos anos */
+    left: calc(50% + 120px); 
     transform: translateY(-50%);
     background-color: var(--primary-green);
-    padding: 16px 22px;
-    border-radius: 30px 0 0 30px;
+    padding: 20px;
+    border-radius: 20px; /* Borda arredondada completa para ficar mais moderna */
     color: white;
     opacity: 0;
-    width: 200px;
+    width: 320px; /* Largura fixa ideal */
     transition: opacity 0.3s, top 0.15s;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-height: 80px;
+    min-height: 100px;
+    z-index: 5;
+    pointer-events: none; /* Evita que a caixa atrapalhe o mouse */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
 .info-bar.visible {
     opacity: 1;
 }
 
-.info-bar.visible {
-    opacity: 1;
-    width: 400px;
+/* Garante que o texto quebre dentro da caixa */
+.info-title {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    display: block;
+    line-height: 1.2;
+    word-wrap: break-word; /* Força quebra de palavras longas */
+}
+
+.info-text {
+    font-size: 0.95rem;
+    opacity: 0.9;
+    line-height: 1.4;
+    display: block;
+    word-wrap: break-word; /* Força quebra de linha */
+    white-space: normal; /* Garante que o texto não fique em uma única linha */
 }
 
 .info-year {
     display: none;
-}
-
-.info-title {
-    font-weight: 700;
-    font-size: 1rem;
-    margin-bottom: 6px;
-    white-space: nowrap;
-}
-
-.info-text {
-    font-size: 0.85rem;
-    opacity: 0.9;
-    white-space: normal;
-    line-height: 1.4;
 }
 
 /* SECAO 3: MAPA COM IMAGENS E DADOS */
@@ -750,11 +791,12 @@ h4 {
 .sprayer-section {
     min-height: 100vh;
     background-color: #fff;
-    padding: 100px 50px;
+    padding: 100px 5vw; /* Garante respiro nas laterais e topos */
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
+    overflow: visible; /* Garante que nada interno seja cortado abruptamente */
 }
 
 #firefliesSprayer {
@@ -777,6 +819,7 @@ h4 {
     max-width: 1300px;
     gap: 60px;
     align-items: center;
+    width: 100%; /* Força a ocupar o espaço correto */
 }
 
 .sprayer-visual {
@@ -936,14 +979,20 @@ h4 {
     margin-top: auto;
 }
 
+#tab-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#tab-content img {
+    border: 2px solid #eee;
+}
+
 .news-headline {
-    background-color: #f1c40f;
-    display: inline-block;
-    padding: 5px 10px;
-    font-weight: 600;
-    margin-bottom: 20px;
-    font-size: 1.2rem;
-    color: #333;
+    font-size: 1.1rem;
+    color: var(--dark-blue);
+    line-height: 1.3;
 }
 
 /* INDICADOR DE SCROLL */
@@ -1173,9 +1222,45 @@ h4 {
     will-change: transform, opacity;
 }
 
-/* Posicao do texto "WHAT IS 2,4D? */
 .molecule-section {
-    margin-top: -350px;
+    padding: 100px 5vw; /* Garante um espaçamento lateral responsivo */
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
     position: relative;
     z-index: 2;
+    overflow: visible; 
+    margin-top: 0; /* Remove a margem negativa que causava a sobreposição */
+}
+
+/* SEÇÃO DE HARDWARE */
+.hardware-section {
+    padding: 100px 50px;
+    background-color: #fff;
+    text-align: center;
+}
+
+.hardware-header {
+    margin-bottom: 40px;
+}
+
+.hardware-header p {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+.model-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+model-viewer {
+    width: 100%;
+    height: 500px;
+    background-color: #f7f9f9;
 }
