@@ -4,11 +4,16 @@ window.addEventListener('scroll', () => {
         const zRect = zoomSection.getBoundingClientRect();
         let zp = Math.max(0, Math.min(1, -zRect.top / (zRect.height - window.innerHeight)));
 
-        const zoomAmount = Math.min(zp * 1.5, 1.2);
+        // Multiplicador aumentado para o zoom acontecer mais rápido
+        const zoomAmount = Math.min(zp * 2.5, 1.2);
         document.getElementById('zoomImage').style.transform = `scale(${1 + zoomAmount})`;
-        document.getElementById('initialText').style.opacity = zp > 0.15 ? 0 : 1;
-        document.getElementById('scrollArrow').style.opacity = zp > 0.05 ? 0 : 1;
-        document.getElementById('finalContent').style.opacity = zp > 0.5 ? 1 : 0;
+
+        // Diminuímos os limites (thresholds) para acelerar o scroll das etapas
+        document.getElementById('initialText').style.opacity = zp > 0.05 ? 0 : 1;
+        document.getElementById('scrollArrow').style.opacity = zp > 0.02 ? 0 : 1;
+
+        // O texto "by iGEM UFRGS Brasil" agora aparece com apenas 20% de scroll (antes era 50%)
+        document.getElementById('finalContent').style.opacity = zp > 0.2 ? 1 : 0;
     }
 
     // Map Section
@@ -63,18 +68,29 @@ window.addEventListener('scroll', () => {
 const pins = document.querySelectorAll('.map-pin');
 const photoViewer = document.getElementById('pinPhotoViewer');
 const activeImg = document.getElementById('pinActiveImg');
+const activeName = document.getElementById('pinActiveName');
 
 if (pins.length > 0) {
     pins.forEach(pin => {
-        pin.addEventListener('mouseenter', (e) => {
-            const imgSrc = e.target.getAttribute('data-img');
+        pin.addEventListener('click', (e) => {
+            // Evita que o clique feche imediatamente pelo listener do window
+            e.stopPropagation();
+
+            const imgSrc = pin.getAttribute('data-img');
+            const cityName = pin.getAttribute('data-name');
+
             activeImg.src = imgSrc;
+            activeName.textContent = cityName;
+
             photoViewer.classList.add('visible');
         });
+    });
 
-        pin.addEventListener('mouseleave', () => {
+    // Fecha a janelinha se o usuário clicar em qualquer outro lugar da tela
+    window.addEventListener('click', () => {
+        if (photoViewer) {
             photoViewer.classList.remove('visible');
-        });
+        }
     });
 }
 
@@ -187,6 +203,100 @@ const newsData = [
     { title: "Court bans the use of the herbicide 2,4-D in regions of Rio Grande do Sul", summary: "A regional court ordered the temporary suspension of 2,4-D use in certain areas of Rio Grande do Sul following multiple reports of damage to fruit crops.", link: "https://g1.globo.com/rs/rio-grande-do-sul/noticia/2025/09/04/justica-proibe-uso-de-agrotoxico-24-d-em-regioes-do-rs-herbicida-afeta-culturas-sensiveis-como-uva-e-maca.ghtml", img: "assets/images/news2.jpg" },
     { title: "The 2,4-D impasse: soybean and grape producers' conflict", summary: "This report describes the conflict between different agricultural sectors regarding the use of 2,4-D. Soybean producers emphasize productivity, whereas grape growers report economic losses.", link: "https://gauchazh.clicrbs.com.br/campo-e-lavoura/noticia/2025/09/justica-libera-uso-de-agrotoxico-24-d-apos-proibicao-no-rs-entenda-cmfyo18vc01de014isnu148wr.html", img: "assets/images/news3.jpg" },
 ];
+
+const carouselTrackNews = document.getElementById('carouselTrack');
+const prevNewsBtn = document.getElementById('prevNewsBtn');
+const nextNewsBtn = document.getElementById('nextNewsBtn');
+
+if (carouselTrackNews && newsData.length > 0) {
+
+    // 1. Injetar os itens originais no HTML
+    const originalHTML = newsData.map(news => `
+        <div class="news-card">
+            <img src="${news.img}" alt="News Image">
+            <h3 class="news-headline">${news.title}</h3>
+            <p style="font-family: sans-serif; color: #555; font-size: 0.9rem;">${news.summary}</p>
+            <a href="${news.link}" target="_blank" style="color:var(--primary-green); font-weight:bold; text-decoration:none; font-family: sans-serif; font-size:0.9rem;">Read full report &rarr;</a>
+        </div>
+    `).join('');
+    carouselTrackNews.innerHTML = originalHTML;
+
+    // 2. Clonagem para efeito Infinito/Circular
+    const cards = Array.from(carouselTrackNews.children);
+    const firstClone = cards[0].cloneNode(true);
+    const lastClone = cards[cards.length - 1].cloneNode(true);
+
+    carouselTrackNews.appendChild(firstClone);
+    carouselTrackNews.insertBefore(lastClone, cards[0]);
+
+let currentNewsIndex = 1;
+    let isTransitioning = false;
+
+    function updateNewsCarousel(smooth = true) {
+        const allCards = carouselTrackNews.children;
+        if (allCards.length === 0) return;
+
+        if (smooth) {
+            carouselTrackNews.style.transition = "transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)";
+        } else {
+            carouselTrackNews.style.transition = "none";
+        }
+
+        // Como cada card tem 100% de largura, mover em múltiplos de -100%
+        // garante centralização matemática perfeita e constante
+        carouselTrackNews.style.transform = `translateX(-${currentNewsIndex * 100}%)`;
+
+        // Atualiza as classes de Destaque
+        Array.from(allCards).forEach((card, idx) => {
+            card.classList.remove('active-card');
+            if (idx === currentNewsIndex) {
+                card.classList.add('active-card');
+            }
+        });
+    }
+
+    // Looping infinito limpo baseado em porcentagem
+    carouselTrackNews.addEventListener('transitionend', () => {
+        isTransitioning = false;
+        const allCards = carouselTrackNews.children;
+
+        if (currentNewsIndex === 0) {
+            carouselTrackNews.style.transition = "none";
+            currentNewsIndex = allCards.length - 2;
+            updateNewsCarousel(false);
+        } else if (currentNewsIndex === allCards.length - 1) {
+            carouselTrackNews.style.transition = "none";
+            currentNewsIndex = 1;
+            updateNewsCarousel(false);
+        }
+    });
+
+    if (nextNewsBtn) {
+        nextNewsBtn.addEventListener('click', () => {
+            if (isTransitioning) return;
+            isTransitioning = true;
+            currentNewsIndex++;
+            updateNewsCarousel();
+        });
+    }
+
+    if (prevNewsBtn) {
+        prevNewsBtn.addEventListener('click', () => {
+            if (isTransitioning) return;
+            isTransitioning = true;
+            currentNewsIndex--;
+            updateNewsCarousel();
+        });
+    }
+
+
+    // Inicialização segura esperando o carregamento completo do DOM e CSS
+    window.addEventListener('load', () => updateNewsCarousel(false));
+    window.addEventListener('resize', () => updateNewsCarousel(false));
+
+    // Fallback caso o evento 'load' já tenha passado
+    setTimeout(() => updateNewsCarousel(false), 200);
+}
 
 function openTab(i) {
     const folderCover = document.getElementById('folderCover');
@@ -325,8 +435,8 @@ const InfectionSys = {
         }, 300); // IMPORTANTE: manter delay!
         
         // Quando a animacao de morte começa
-        const scrollStartThreshold = 0.20;
-        const scrollEndThreshold = 0.01;
+        const scrollStartThreshold = 0.05;
+        const scrollEndThreshold = 0.0001;
         
         window.addEventListener('scroll', () => {
             const mRect = moleculeInfo.getBoundingClientRect();
@@ -420,4 +530,34 @@ if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => InfectionSys.init());
 } else {
     InfectionSys.init();
+}
+// ==========================================
+// INTERATIVIDADE DO DESIGN BIOLÓGICO
+// ==========================================
+const bioPins = document.querySelectorAll('.bio-pin');
+const bioInfoViewer = document.getElementById('bioInfoViewer');
+const bioActiveTitle = document.getElementById('bioActiveTitle');
+const bioActiveDesc = document.getElementById('bioActiveDesc');
+
+if (bioPins.length > 0 && bioInfoViewer) {
+    bioPins.forEach(pin => {
+        pin.addEventListener('click', (e) => {
+            e.stopPropagation(); // Impede o fechamento imediato pela janela
+
+            const title = pin.getAttribute('data-title');
+            const desc = pin.getAttribute('data-desc');
+
+            bioActiveTitle.textContent = title;
+            bioActiveDesc.textContent = desc;
+
+            bioInfoViewer.classList.add('visible');
+        });
+    });
+
+    // Fecha a janela ao clicar em qualquer área vazia do site
+    window.addEventListener('click', () => {
+        if (bioInfoViewer) {
+            bioInfoViewer.classList.remove('visible');
+        }
+    });
 }

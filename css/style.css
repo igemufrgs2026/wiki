@@ -258,7 +258,7 @@ h4 {
 
 /* SECAO 1: HERO */
 .zoom-container {
-    height: 700vh;
+    height: 350vh;
     position: relative;
 }
 
@@ -443,19 +443,8 @@ h4 {
     margin: 0 auto;
     padding-top: 30px;
     padding-bottom: 30px;
-    transform: translateX(50px); /* Empurra toda a timeline 50px para a direita */
-}
-
-/* Ajuste da extensão criada anteriormente */
-.timeline-extension {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 10px;
-    height: 250px; /* Aumente esse valor se a linha não encostar no mapa */
-    background: linear-gradient(to bottom, #5d34a5, transparent);
-    z-index: 1;
+    /* Alterado para puxar toda a estrutura (linha, anos e caixa) para a esquerda */
+    transform: translateX(-40px);
 }
 
 .timeline-today {
@@ -472,6 +461,7 @@ h4 {
     z-index: 2;
 }
 
+/* 1. O trilho principal serve de âncora absoluta perfeita */
 .timeline-track {
     position: relative;
     width: 10px;
@@ -479,6 +469,22 @@ h4 {
     background-color: #5d34a5;
     border-radius: 10px;
     flex-shrink: 0;
+    z-index: 2;
+}
+
+/* 2. A extensão agora usa propriedades simplificadas porque está DENTRO do trilho */
+.timeline-extension {
+    position: absolute;
+    top: calc(100% - 5px); /* Faz ela começar 5px antes de terminar o trilho, criando uma sobreposição */
+    left: 0;               /* Alinhamento perfeito com a borda esquerda do trilho */
+    width: 100%;           /* Ocupa exatamente os mesmos 10px de largura do trilho pai */
+    height: 250px;
+    background: linear-gradient(to bottom, #5d34a5, transparent);
+    z-index: -1;           /* Fica logo atrás do arredondado do trilho */
+
+    /* Removemos o left: 50%, transform e margin-top que causavam o desalinhamento de pixels */
+    transform: none;
+    margin-top: 0;
 }
 
 .timeline-knob {
@@ -494,16 +500,31 @@ h4 {
     z-index: 10;
 }
 
-/* Anos a direita da linha */
+/* Anos fixados à direita da linha roxa */
 .year-marker {
     position: absolute;
-    left: 25px;
+    left: 25px; /* Mantido na direita da linha roxa */
     transform: translateY(-50%);
     font-size: 1rem;
     color: #aaa;
     cursor: pointer;
     transition: font-size 0.2s, color 0.2s, font-weight 0.2s;
     white-space: nowrap;
+}
+
+/* Títulos fixados à esquerda da linha roxa */
+.year-label {
+    position: absolute;
+    right: 25px; /* Mantido na esquerda da linha roxa */
+    transform: translateY(-50%);
+    font-size: 0.85rem;
+    color: #aaa;
+    white-space: normal;
+    width: 180px;
+    line-height: 1.3;
+    text-align: right;
+    transition: color 0.2s, font-weight 0.2s;
+    pointer-events: none;
 }
 
 .year-marker.active {
@@ -514,44 +535,33 @@ h4 {
 }
 
 
-.year-label {
-    position: absolute;
-    right: 25px;
-    transform: translateY(-50%);
-    font-size: 0.85rem;
-    color: #aaa;
-    white-space: normal; /* Permite a quebra de linha (removemos o nowrap) */
-    width: 180px; /* Limita a largura para forçar 2 ou mais linhas */
-    line-height: 1.3; /* Melhora o espaçamento entre as linhas */
-    text-align: right;
-    transition: color 0.2s, font-weight 0.2s;
-    pointer-events: none;
-}
+
 
 .year-label.active {
     color: var(--dark-blue);
     font-weight: 700;
 }
 
-/* Caixa verde apontando para a esquerda */
+/* Caixa verde — Mantida na direita da linha do tempo */
 .info-bar {
     position: absolute;
-    /* Movemos a caixa para a direita da linha para não tocar nos anos */
-    left: calc(50% + 120px); 
+    /* Reduzido de +120px para +95px para aproximá-la do trilho e acompanhar o recuo para a esquerda */
+    left: calc(50% + 120px);
+    right: auto;
     transform: translateY(-50%);
     background-color: var(--primary-green);
     padding: 20px;
-    border-radius: 20px; /* Borda arredondada completa para ficar mais moderna */
+    border-radius: 20px;
     color: white;
     opacity: 0;
-    width: 320px; /* Largura fixa ideal */
+    width: 320px;
     transition: opacity 0.3s, top 0.15s;
     display: flex;
     flex-direction: column;
     justify-content: center;
     min-height: 100px;
     z-index: 5;
-    pointer-events: none; /* Evita que a caixa atrapalhe o mouse */
+    pointer-events: none;
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
@@ -674,12 +684,12 @@ h4 {
 
 .pin-photo-viewer {
     position: absolute;
-    top: 10%;
-    right: -20%;
-    width: 250px;
-    height: 180px;
+    top: 15%;
+    right: -25%;
+    width: 260px;
+    height: auto;          /* Permite que a caixinha cresça conforme o conteúdo */
     background: white;
-    padding: 5px;
+    padding: 12px;
     border-radius: 8px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     opacity: 0;
@@ -687,6 +697,11 @@ h4 {
     transition: all 0.3s ease;
     transform: translateY(10px);
     z-index: 30;
+
+    /* Força o alinhamento vertical correto dos itens dentro dela */
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box; /* Garante que o padding não mude o tamanho total */
 }
 
 .pin-photo-viewer.visible {
@@ -696,10 +711,12 @@ h4 {
 }
 
 .pin-photo-viewer img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    width: 100%;           /* Ocupa toda a largura interna disponível da caixinha */
+    height: 150px;          /* Define uma altura fixa para a foto */
+    object-fit: cover;     /* Corta a imagem proporcionalmente sem distorcer */
     border-radius: 4px;
+    margin-top: 8px;       /* Cria um distanciamento saudável do nome do município */
+    display: block;        /* Remove espaçamentos fantasmas de elementos inline */
 }
 
 .map-col-right {
@@ -903,6 +920,15 @@ h4 {
     align-items: center;
 }
 
+.archive-grid-layout {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr; /* Carrossel maior à esquerda, texto à direita */
+    gap: 40px;
+    max-width: 1300px;
+    margin: 0 auto;
+    align-items: center; /* Alinha o centro vertical do texto com o carrossel */
+}
+
 .folder-tabs {
     display: flex;
     gap: 5px;
@@ -990,9 +1016,10 @@ h4 {
 }
 
 .news-headline {
-    font-size: 1.1rem;
+    font-size: 1.4rem;
     color: var(--dark-blue);
     line-height: 1.3;
+    font-weight: 700;
 }
 
 /* INDICADOR DE SCROLL */
@@ -1263,4 +1290,204 @@ model-viewer {
     width: 100%;
     height: 500px;
     background-color: #f7f9f9;
+}
+
+.carousel-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    position: relative;
+}
+
+.carousel-wrapper {
+    overflow: hidden;
+    width: 100%; /* Passa a ser 100% da coluna dele em vez de um tamanho fixo rígido */
+    max-width: 680px; /* Limite de segurança para manter as proporções visuais dos cards */
+    padding: 30px 0;
+    position: relative;
+    border-radius: 12px;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    width: 100%;
+}
+
+/* CARDS DE NOTÍCIA */
+.news-card {
+    min-width: 100%; /* Cada card ocupa exatamente 100% da largura do wrapper (800px) */
+    box-sizing: border-box;
+    background: #fff;
+    padding: 35px;
+    border-radius: 12px;
+    border-top: 5px solid var(--primary-green);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+
+    /* Efeito esmaecido padrão */
+    opacity: 0.3;
+    transform: scale(0.9);
+    transition: transform 0.4s ease, opacity 0.4s ease, box-shadow 0.4s ease;
+}
+
+.news-card img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.news-headline {
+    font-size: 1.4rem;
+    color: var(--dark-blue);
+    margin: 15px 0 10px;
+}
+
+/* CARD EM DESTAQUE (CENTRAL) */
+.news-card.active-card {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+}
+
+/* BOTÕES NATURAIS NAS LATERAIS */
+.carousel-btn {
+    background: var(--primary-green);
+    color: white;
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s;
+    z-index: 10;
+    margin: 0 15px;
+}
+
+.carousel-btn:hover {
+    background: var(--dark-blue);
+}
+
+/* AJUSTES DO TEXTO (DIREITA) */
+.archive-context {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+    border-right: 5px solid var(--primary-green); /* Detalhe verde elegante na direita */
+}
+
+.archive-context p {
+    font-family: var(--main-font);
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: #444;
+    text-align: justify;
+    margin: 0;
+}
+
+/* RESPONSIVIDADE (Para telas menores, volta a ficar um embaixo do outro) */
+@media (max-width: 960px) {
+    .archive-grid-layout {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .carousel-wrapper {
+        max-width: 100%;
+    }
+}
+
+/* SEÇÃO BIOLÓGICA INTERATIVA */
+.biological-section {
+    padding: 100px 50px;
+    background-color: #fafafa;
+    text-align: center;
+    position: relative;
+}
+
+.biological-header {
+    margin-bottom: 40px;
+}
+
+.biological-header p {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+.biological-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.bio-visual-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+    background: #fff;
+}
+
+#img-bio-circuit {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ESTILIZAÇÃO DOS PINS DA BIOLOGIA (Verdes para combinar com o tema) */
+.bio-pin {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    background-color: var(--primary-green);
+    border: 3px solid white;
+    border-radius: 50%;
+    box-shadow: 0 0 12px rgba(39, 174, 96, 0.6);
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+    z-index: 10;
+}
+
+.bio-pin:hover {
+    transform: translate(-50%, -50%) scale(1.3);
+    background-color: var(--dark-blue);
+    box-shadow: 0 0 15px rgba(46, 8, 152, 0.5);
+}
+
+/* CAIXINHA DE TEXTO DO DIAGRAMA BIOLÓGICO */
+.bio-info-viewer {
+    position: absolute;
+    bottom: -20px; /* Aparece logo abaixo do diagrama centralizado */
+    width: 100%;
+    max-width: 500px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-top: 5px solid var(--primary-green);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    transform: translateY(15px);
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.bio-info-viewer.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
 }

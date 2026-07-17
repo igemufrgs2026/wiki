@@ -186,45 +186,46 @@
             <div class="map-col-left">
                 <div class="map-visual-container">
                     <img src="assets/images/brasil.png" alt="Map of Brazil" id="img-brazil" class="map-layer">
-                    <div id="rs-container" class="map-layer rs-layer">
-                        <img src="assets/images/rs.png" alt="Map of Rio Grande do Sul" id="img-rs">
-                        <div class="map-pin" style="top: 40%; left: 35%;" data-img="foto_local1.jpg"></div>
-                        <div class="map-pin" style="top: 65%; left: 45%;" data-img="foto_local2.jpg"></div>
-                        <div class="map-pin" style="top: 50%; left: 70%;" data-img="foto_local3.jpg"></div>
-                    </div>
-                    <div class="pin-photo-viewer" id="pinPhotoViewer">
-                        <img id="pinActiveImg" src="" alt="Affected Location">
-                    </div>
+<div id="rs-container" class="map-layer rs-layer">
+    <img src="assets/images/rs.png" alt="Map of Rio Grande do Sul" id="img-rs">
+
+    <!-- Pin 1: Jaguari -->
+    <div class="map-pin" style="top: 40%; left: 38%;" data-name="Jaguari" data-img="assets/images/jaguari.jpg"></div>
+
+    <!-- Pin 2: Santana do Livramento -->
+    <div class="map-pin" style="top: 56%; left: 28%;" data-name="Santana do Livramento" data-img="assets/images/santana_do_livramento.jpg"></div>
+
+    <!-- Pin 3: Dom Pedrito -->
+    <div class="map-pin" style="top: 58%; left: 40%;" data-name="Dom Pedrito" data-img="assets/images/dom_pedrito.jpg"></div>
+</div>
+<div class="pin-photo-viewer" id="pinPhotoViewer">
+    <!-- Adicionamos uma tag para o título do município -->
+    <h4 id="pinActiveName" style="color: var(--dark-blue); margin: 5px 0; text-align: center; font-weight: bold;"></h4>
+    <img id="pinActiveImg" src="" alt="Affected Location">
+</div>
                 </div>
             </div>
             <div class="map-col-right">
                 <div class="text-block-initial" id="mapTextInitial">
-                    <h2>A CONTINENTAL CHALLENGE</h2>
-                    <p>The coexistence of soy and vineyards in the same territory brings invisible risks to farmers
-                        across the country.</p>
+                    <h3>A CONTINENTAL CHALLENGE</h3>
+<h4>
+    Although 2,4-D drives <strong>Brazilian agribusiness</strong>, severe herbicide drift accidentally damages sensitive crops nationwide, leaving <strong>vineyards and apple orchards devastated</strong>.
+    <br><br>
+    This volatile spread causes <strong>production losses between 30% and 80%</strong>, inflicting millions in cumulative economic damages across agricultural borders.
+    <br><br>
+    The biological impact is aggressive: <strong>abnormalities appear just three days after exposure</strong>, and it takes <strong>up to two years for a single vine to fully detoxify</strong>.
+</h4>
                 </div>
                 <div class="text-block-final" id="mapTextFinal">
-                    <h2>RIO GRANDE DO SUL: GROUND ZERO</h2>
-                    <p>The Campanha region suffers intensely from 2,4-D drift, directly hitting vineyards. Hover over
-                        the red pins to see the affected areas.</p>
-                        
-                    <div class="impact-dashboard">
-                        <div class="impact-card">
-                            <h4>Economic Losses</h4>
-                            <div class="chart-placeholder"><span>[Insert Chart Image Here]</span></div>
-                        </div>
-                        <div class="impact-card">
-                            <h4>Headlines</h4>
-                            <ul class="news-list">
-                                <li>"2,4-D drift destroys historic vineyards in RS."</li>
-                                <li>"Farmers calculate millions in agricultural losses."</li>
-                            </ul>
-                        </div>
-                        <div class="impact-card alert-card">
-                            <h4>The Testing Bottleneck</h4>
-                            <p>Currently, lab testing to confirm 2,4-D contamination is <strong>extremely expensive and
-                                    time-consuming</strong>, hindering regulation and leaving farmers without legal
-                                recourse.</p>
+                    <h3>RIO GRANDE DO SUL: GROUND ZERO</h3>
+<h4>
+    In 2025, public pressure from grape growers led to a <strong>temporary ban of 2,4-D in Rio Grande do Sul</strong>, which was quickly suspended weeks later due to grain industry counter-pressure, leaving affected farmers unprotected.
+    <br><br>
+    The only regulatory shield remains proving contamination to the government. However, detection relies entirely on <strong>High-Performance Liquid Chromatography (HPLC)</strong>, an <strong>extremely expensive and time-consuming</strong> process.
+    <br><br>
+    Because specialized labs are far from the fields, results face heavy delays, and the affected producers are forced to <strong>pay for these analyses out of their own pockets</strong>.
+</h4>
+
                         </div>
                     </div>
                 </div>
@@ -233,32 +234,61 @@
     </div>
 
 
-    <section class="archive-section">
-        <div class="archive-header">
-            <h2>SO HOW DOES <span class="highlight-green">OURS PROJECT</span> FIT INTO THIS?</h2>
-        </div>
-        <div class="archive-grid">
-            <div class="folder-container">
-                <div class="folder-tabs">
-                    <button class="tab-btn active" onclick="openTab(0)">HOME</button>
-                    <button class="tab-btn" onclick="openTab(1)">News 1</button>
-                    <button class="tab-btn" onclick="openTab(2)">News 2</button>
-                    <button class="tab-btn" onclick="openTab(3)">News 3</button>
-                </div>
-                <div class="folder-body">
-                    <div class="folder-cover-content" id="folderCover">iGEM</div>
-                    <div class="folder-paper" id="folderPaper">
-                        <div id="tab-content"></div>
-                    </div>
-                    <button class="archive-btn">iGEM Archive</button>
+<section class="archive-section">
+    <div class="archive-header">
+        <h2>ECHOES FROM <span class="highlight-green">THE DRIFT</span></h2>
+    </div>
+
+    <!-- Novo contêiner de duas colunas wrap-grid -->
+    <div class="archive-grid-layout">
+
+        <!-- Coluna da Esquerda: O Carrossel -->
+        <div class="carousel-container">
+            <button class="carousel-btn prev-btn" id="prevNewsBtn">&#10094;</button>
+
+            <div class="carousel-wrapper">
+                <div class="carousel-track" id="carouselTrack">
+                    <!-- Os cartões de notícias permanecem injetados dinamicamente aqui -->
                 </div>
             </div>
-            <div class="archive-context">
-                <p>There is a growing controversy surrounding the use of the herbicide 2,4-D in southern Brazil, particularly in the state of Rio Grande do Sul. While the product is widely used by soybean farmers as an effective tool for weed control, repeated cases of herbicide drift have caused damage to sensitive crops such as grapes, apples, olives, and other fruits. As a result, the issue has triggered conflicts between different agricultural sectors, legal disputes, and new regulatory proposals aimed at controlling or restricting its application. This situation illustrates the broader challenge of balancing agricultural productivity with environmental protection, crop coexistence, and the safety of rural communities.
-</p>
-            </div>
+
+            <button class="carousel-btn next-btn" id="nextNewsBtn">&#10095;</button>
         </div>
-    </section>
+
+        <!-- Coluna da Direita: O Texto Informativo -->
+        <div class="archive-context">
+            <p>There is a growing controversy surrounding the use of the herbicide 2,4-D in Brazil. While the product is key for soybean productivity, repeated cases of drift cause massive damage to sensitive fruit cultures. This illustrates the national challenge of balancing agricultural scale with environmental coexistence.</p>
+        </div>
+
+    </div>
+</section>
+
+        <!-- NOVA SEÇÃO: BIOLOGICAL DESIGN COM PONS INTERATIVOS -->
+<section class="biological-section">
+    <div class="biological-header">
+        <h2>OUR <span class="highlight-green">BIOLOGICAL DESIGN</span></h2>
+        <p>Click on the interactive targets to discover the molecular components of our biosensor.</p>
+    </div>
+
+    <div class="biological-container">
+        <div class="bio-visual-container">
+            <!-- Substitua pelo caminho da imagem do seu circuito genético/plasmídeo -->
+            <img src="assets/images/biological_circuit.png" alt="Biological Circuit Diagram" id="img-bio-circuit">
+
+            <!-- Altere os valores de top e left para posicionar os alvos perfeitamente sobre a sua imagem -->
+            <div class="bio-pin" style="top: 35%; left: 20%;" data-title="Promoter Region" data-desc="The regulatory DNA sequence that initiates transcription of our target biosensor mechanism when 2,4-D is detected."></div>
+            <div class="bio-pin" style="top: 48%; left: 52%;" data-title="CadR Protein" data-desc="A selective regulatory protein that binds specifically to 2,4-D molecules, triggering the system's reporter signal."></div>
+            <div class="bio-pin" style="top: 65%; left: 80%;" data-title="Reporter Gene" data-desc="The enzymatic or fluorescent output component that generates a fast, visual readout to confirm contamination."></div>
+        </div>
+
+        <!-- Caixinha flutuante que exibirá as informações do ponto clicado -->
+        <div class="bio-info-viewer" id="bioInfoViewer">
+            <h4 id="bioActiveTitle" style="color: var(--dark-blue); margin: 0 0 5px 0; font-weight: bold; font-size: 1.2rem;"></h4>
+            <p id="bioActiveDesc" style="font-family: sans-serif; color: #555; font-size: 0.95rem; margin: 0; line-height: 1.4; text-align: justify;"></p>
+        </div>
+    </div>
+</section>
+
     <section class="hardware-section">
     <div class="hardware-header">
         <h2>OUR <span class="highlight-green">HARDWARE</span></h2>
@@ -272,12 +302,14 @@
                 camera-controls
                 shadow-intensity="1"
                 environment-image="neutral"
-                camera-orbit="45deg 55deg 2m"
+                camera-orbit="45deg 55deg 250m"
                 min-camera-orbit="auto auto 1m"
                 style="width: 100%; height: 500px;">
         </model-viewer>
     </div>
 </section>
+
+
 
     <section class="discover-section">
         <h2>DISCOVER MORE ABOUT <span class="green-highlight">NOME</span></h2>
