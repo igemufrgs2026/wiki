@@ -16,6 +16,10 @@ html {
     --title-size: 4rem;
     --subtitle-size: 2.5rem;
     --body-size: 1.1rem;
+    --nav-text-size: 1.0rem;
+    --nav-icon-size: 16px;
+    --discover-circle-size: 190px;
+    --logo-size: 60px;
 }
 
 body {
@@ -63,15 +67,16 @@ h4 {
 }
 
 .team-logo {
-    width: 120px;
-    height: 40px;
-    border: 2px solid rgba(255, 255, 255, 0.5);
+    height: var(--logo-size);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: white;
+}
+
+.team-logo img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
 }
 
 .nav-menu {
@@ -93,15 +98,15 @@ h4 {
     border-radius: 5px;
     text-decoration: none;
     color: white;
-    font-size: 0.85rem;
+    font-size: var(--nav-text-size);
     text-transform: uppercase;
     font-weight: 600;
     transition: all 0.3s ease;
 }
 
 .nav-item>a svg {
-    width: 16px;
-    height: 16px;
+    width: var(--nav-icon-size);
+    height: var(--nav-icon-size);
     fill: white;
     transition: fill 0.3s ease;
 }
@@ -1081,8 +1086,8 @@ h4 {
 }
 
 .discover-circle {
-    width: 250px;
-    height: 250px;
+    width: var(--discover-circle-size);
+    height: var(--discover-circle-size);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -1490,4 +1495,107 @@ model-viewer {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
+}/* HEADER DA PÁGINA COM SIDEBAR */
+.page-hero-header {
+    background-color: var(--primary-green);
+    color: white;
+    padding: 120px 20px 60px;
+    text-align: center;
+    border-bottom: 5px solid var(--dark-blue);
+}
+
+.chapters-layout {
+    display: flex;
+    max-width: 1300px;
+    margin: 150px auto 80px;
+    padding: 0 40px;
+    gap: 60px;
+    align-items: flex-start;
+    min-height: 60vh;
+}
+
+/* BARRA LATERAL (CHAPTERS) */
+.chapters-sidebar {
+    position: sticky;
+    top: 100px;
+    flex: 0 0 250px;
+    padding-top: 10px;
+}
+
+.chapters-sidebar h4 {
+    margin-bottom: 15px;
+    font-weight: 700;
+    color: var(--dark-blue);
+    text-transform: uppercase;
+}
+
+.chapters-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.chapters-menu li {
+    margin-bottom: 10px;
+}
+
+.chapters-menu a {
+    text-decoration: none;
+    color: #666;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s;
+    display: block;
+    padding: 8px 12px;
+    border-radius: 4px;
+}
+
+.chapters-menu a.active {
+    background: rgba(39, 174, 96, 0.1);
+    color: var(--primary-green);
+    border-left: 3px solid var(--primary-green);
+    border-radius: 0 4px 4px 0;
+}
+
+/* ÁREA DE CONTEÚDO */
+.chapters-content {
+    flex: 1;
+}
+
+.chapter-section {
+    margin-bottom: 60px;
+    scroll-margin-top: 120px;
+}
+
+.chapter-section:last-child {
+    margin-bottom: 0;
+}
+
+.chapter-section h2 {
+    font-size: 2rem;
+    color: var(--dark-blue);
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.chapter-section h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: var(--primary-green);
+    margin-top: 10px;
+    border-radius: 2px;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 960px) {
+    .chapters-layout {
+        flex-direction: column;
+    }
+    .chapters-sidebar {
+        position: static;
+        width: 100%;
+        flex: none;
+    }
 }

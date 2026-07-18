@@ -561,3 +561,31 @@ if (bioPins.length > 0 && bioInfoViewer) {
         }
     });
 }
+// Sidebar Intersection Observer for standard pages
+document.addEventListener('DOMContentLoaded', () => {
+    const sections = document.querySelectorAll('.chapter-section');
+    const navLinks = document.querySelectorAll('.chapters-menu a');
+
+    if(sections.length > 0 && navLinks.length > 0) {
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px 0px -60% 0px',
+            threshold: 0
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    navLinks.forEach(link => link.classList.remove('active'));
+                    const id = entry.target.getAttribute('id');
+                    const activeLink = document.querySelector(`.chapters-menu a[href="#${id}"]`);
+                    if(activeLink) activeLink.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            if(section.id) observer.observe(section);
+        });
+    }
+});
